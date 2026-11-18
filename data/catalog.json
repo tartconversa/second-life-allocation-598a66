@@ -65,7 +65,7 @@
     },
     {
       "name": "quick_tests",
-      "description": "非破坏快检。",
+      "description": "非破坏快检，温升是测试负荷下相对环境的升温。",
       "columns": [
         {
           "name": "module_id",
@@ -86,9 +86,9 @@
           "nullable": true
         },
         {
-          "name": "temperature_c",
+          "name": "temperature_rise_c",
           "type": "number",
-          "description": "温升检验时温度",
+          "description": "快检温升摄氏度",
           "nullable": true
         },
         {
@@ -116,7 +116,7 @@
       ],
       "path": "data/quick_tests.csv",
       "row_count": 240,
-      "sha256": "45b758c96fe6d81489d8f0532418b0ed7da082dd7c4797ea9dffb87b2e5cb540"
+      "sha256": "3af1a0e3fdfa0da670eb860e300748771613fcafd776e789dd38a94ec3dd027b"
     },
     {
       "name": "cycle_tests",
@@ -399,9 +399,9 @@
           "nullable": true
         },
         {
-          "name": "max_temp_c",
+          "name": "max_temp_rise_c",
           "type": "number",
-          "description": "交付安全温度上限",
+          "description": "允许快检温升上限",
           "nullable": true
         },
         {
@@ -417,7 +417,7 @@
       "references": [],
       "path": "data/disposition_prices.csv",
       "row_count": 2,
-      "sha256": "14a5a2adebeb9d747643133afca67978ba20ffcbaca6d194fba8f3909d8e43bc"
+      "sha256": "0c453d31cef1145f7f82c7220055994bb5d9f41048c676c79c66042da34177c6"
     }
   ]
 }

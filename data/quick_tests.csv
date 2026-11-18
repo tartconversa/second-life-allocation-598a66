@@ -1,4 +1,4 @@
-module_id,energy_kwh,resistance_mohm,temperature_c,power_kw,available_at
+module_id,energy_kwh,resistance_mohm,temperature_rise_c,power_kw,available_at
 M001,8.92798,2.95132,30.85395,4.0,2022-11-03T08:00:00+08:00
 M002,9.59424,3.69023,33.07068,4.0,2022-11-03T08:00:00+08:00
 M003,9.43849,3.68063,33.04189,4.0,2022-11-03T08:00:00+08:00
