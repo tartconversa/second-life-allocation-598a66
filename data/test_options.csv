@@ -1,0 +1,3 @@
+option_id,duration_days,cost,consumed_cycles,destroys
+cycle_test,8,240,20,false
+open_test,1,180,0,true

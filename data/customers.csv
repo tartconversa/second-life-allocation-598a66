@@ -1,0 +1,5 @@
+customer_id,chemistry,energy_kwh,power_kw,cycles,temperature_c,risk_limit,reserve_modules,price,penalty,confirm_until
+C1,LFP,40,8,310,27,0.05,2,18000,7000,2025-03-02
+C2,LFP,48,8,340,29,0.05,2,20000,7000,2025-03-02
+C3,LFP,56,8,370,31,0.05,2,22000,7000,2025-03-02
+C4,LFP,64,8,400,33,0.05,2,24000,7000,2025-03-02

@@ -1,0 +1,3 @@
+chemistry,recycle_each,max_temp_c,max_resistance_mohm
+LFP,650,45,4
+NMC,800,42,3.7

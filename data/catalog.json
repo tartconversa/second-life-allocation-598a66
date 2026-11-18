@@ -1,0 +1,423 @@
+{
+  "title": "梯次电池的诊断分流与组合交付分析",
+  "synthetic": true,
+  "tables": [
+    {
+      "name": "modules",
+      "description": "模组来源与实物，historical_only为历史分析用且不可交付；完整到阈值试验样本已经耗尽使用资格。",
+      "columns": [
+        {
+          "name": "module_id",
+          "type": "string",
+          "description": "模组",
+          "nullable": true
+        },
+        {
+          "name": "source_pack",
+          "type": "string",
+          "description": "原退役包",
+          "nullable": true
+        },
+        {
+          "name": "batch",
+          "type": "string",
+          "description": "拆解批",
+          "nullable": true
+        },
+        {
+          "name": "chemistry",
+          "type": "string",
+          "description": "化学体系",
+          "nullable": true
+        },
+        {
+          "name": "voltage",
+          "type": "integer",
+          "description": "电压等级伏",
+          "nullable": true
+        },
+        {
+          "name": "received",
+          "type": "date",
+          "description": "到货日",
+          "nullable": true
+        },
+        {
+          "name": "purchase_cost",
+          "type": "number",
+          "description": "采购元",
+          "nullable": true
+        },
+        {
+          "name": "state",
+          "type": "string",
+          "description": "available或historical_only",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "module_id"
+      ],
+      "references": [],
+      "path": "data/modules.csv",
+      "row_count": 240,
+      "sha256": "757d26ad443ab42acbbd1f0a66ec2a3ec4a1b0e5abdcf0a4d58a0afe890809f8"
+    },
+    {
+      "name": "quick_tests",
+      "description": "非破坏快检。",
+      "columns": [
+        {
+          "name": "module_id",
+          "type": "string",
+          "description": "模组",
+          "nullable": true
+        },
+        {
+          "name": "energy_kwh",
+          "type": "number",
+          "description": "剩余能量",
+          "nullable": true
+        },
+        {
+          "name": "resistance_mohm",
+          "type": "number",
+          "description": "内阻",
+          "nullable": true
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "description": "温升检验时温度",
+          "nullable": true
+        },
+        {
+          "name": "power_kw",
+          "type": "number",
+          "description": "功率上限",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时点",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "module_id"
+      ],
+      "references": [
+        {
+          "column": "module_id",
+          "target_table": "modules",
+          "target_column": "module_id"
+        }
+      ],
+      "path": "data/quick_tests.csv",
+      "row_count": 240,
+      "sha256": "45b758c96fe6d81489d8f0532418b0ed7da082dd7c4797ea9dffb87b2e5cb540"
+    },
+    {
+      "name": "cycle_tests",
+      "description": "有选择的历史完整循环标签。",
+      "columns": [
+        {
+          "name": "test_id",
+          "type": "string",
+          "description": "试验",
+          "nullable": true
+        },
+        {
+          "name": "module_id",
+          "type": "string",
+          "description": "模组",
+          "nullable": true
+        },
+        {
+          "name": "test_load_kw",
+          "type": "number",
+          "description": "负荷",
+          "nullable": true
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "description": "温度",
+          "nullable": true
+        },
+        {
+          "name": "life_cycles",
+          "type": "number",
+          "description": "达到阈值循环数",
+          "nullable": true
+        },
+        {
+          "name": "selection_probability",
+          "type": "number",
+          "description": "登记送检概率",
+          "nullable": true
+        },
+        {
+          "name": "completed",
+          "type": "boolean",
+          "description": "完成",
+          "nullable": true
+        },
+        {
+          "name": "available_at",
+          "type": "datetime",
+          "description": "可知时点",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "test_id"
+      ],
+      "references": [
+        {
+          "column": "module_id",
+          "target_table": "modules",
+          "target_column": "module_id"
+        }
+      ],
+      "path": "data/cycle_tests.csv",
+      "row_count": 95,
+      "sha256": "11f090b9e2ef951958e92a8a26af82080d970c898596bfc7b9f620f714bdab5b"
+    },
+    {
+      "name": "customers",
+      "description": "拟交付用途与保障。",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "string",
+          "description": "客户",
+          "nullable": true
+        },
+        {
+          "name": "chemistry",
+          "type": "string",
+          "description": "所需体系",
+          "nullable": true
+        },
+        {
+          "name": "energy_kwh",
+          "type": "number",
+          "description": "每日可用能量需求",
+          "nullable": true
+        },
+        {
+          "name": "power_kw",
+          "type": "number",
+          "description": "功率需求",
+          "nullable": true
+        },
+        {
+          "name": "cycles",
+          "type": "integer",
+          "description": "服务循环",
+          "nullable": true
+        },
+        {
+          "name": "temperature_c",
+          "type": "number",
+          "description": "环境温度",
+          "nullable": true
+        },
+        {
+          "name": "risk_limit",
+          "type": "number",
+          "description": "允许服务短缺概率",
+          "nullable": true
+        },
+        {
+          "name": "reserve_modules",
+          "type": "integer",
+          "description": "替换余量",
+          "nullable": true
+        },
+        {
+          "name": "price",
+          "type": "number",
+          "description": "交付收益",
+          "nullable": true
+        },
+        {
+          "name": "penalty",
+          "type": "number",
+          "description": "短缺成本",
+          "nullable": true
+        },
+        {
+          "name": "confirm_until",
+          "type": "date",
+          "description": "确认期限",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "customer_id"
+      ],
+      "references": [],
+      "path": "data/customers.csv",
+      "row_count": 4,
+      "sha256": "7a8b078b23598204626c0d9f929bec0423cd22a3e271c1d1be68fc965566a3fc"
+    },
+    {
+      "name": "loads",
+      "description": "客户典型日时段功率。",
+      "columns": [
+        {
+          "name": "customer_id",
+          "type": "string",
+          "description": "客户",
+          "nullable": true
+        },
+        {
+          "name": "hour",
+          "type": "integer",
+          "description": "小时",
+          "nullable": true
+        },
+        {
+          "name": "power_kw",
+          "type": "number",
+          "description": "功率",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "customer_id",
+        "hour"
+      ],
+      "references": [
+        {
+          "column": "customer_id",
+          "target_table": "customers",
+          "target_column": "customer_id"
+        }
+      ],
+      "path": "data/loads.csv",
+      "row_count": 96,
+      "sha256": "0e5b701aed4131e52788246bfa7dc7cc9d92234d69f35707eace631cabf762dd"
+    },
+    {
+      "name": "test_options",
+      "description": "检测与寿命消耗。",
+      "columns": [
+        {
+          "name": "option_id",
+          "type": "string",
+          "description": "检测",
+          "nullable": true
+        },
+        {
+          "name": "duration_days",
+          "type": "integer",
+          "description": "耗时",
+          "nullable": true
+        },
+        {
+          "name": "cost",
+          "type": "number",
+          "description": "费用",
+          "nullable": true
+        },
+        {
+          "name": "consumed_cycles",
+          "type": "integer",
+          "description": "消耗循环",
+          "nullable": true
+        },
+        {
+          "name": "destroys",
+          "type": "boolean",
+          "description": "破坏",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "option_id"
+      ],
+      "references": [],
+      "path": "data/test_options.csv",
+      "row_count": 2,
+      "sha256": "392c7d552d1ca95b1f1ec99e7ff0ecda9298758ff0a9410d52d46b25e3815112"
+    },
+    {
+      "name": "test_capacity",
+      "description": "每日共享检测台。",
+      "columns": [
+        {
+          "name": "date",
+          "type": "date",
+          "description": "日期",
+          "nullable": true
+        },
+        {
+          "name": "benches",
+          "type": "integer",
+          "description": "台数",
+          "nullable": true
+        },
+        {
+          "name": "other_reserved",
+          "type": "integer",
+          "description": "其他已占",
+          "nullable": true
+        },
+        {
+          "name": "budget",
+          "type": "number",
+          "description": "本轮总预算仅首日登记",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "date"
+      ],
+      "references": [],
+      "path": "data/test_capacity.csv",
+      "row_count": 20,
+      "sha256": "d2038bcb34587705d29791ca3a133535d3a383647d19ea8ce53b2c85b4629d0c"
+    },
+    {
+      "name": "disposition_prices",
+      "description": "回收价格与相容边界。",
+      "columns": [
+        {
+          "name": "chemistry",
+          "type": "string",
+          "description": "体系",
+          "nullable": true
+        },
+        {
+          "name": "recycle_each",
+          "type": "number",
+          "description": "回收元每模组",
+          "nullable": true
+        },
+        {
+          "name": "max_temp_c",
+          "type": "number",
+          "description": "交付安全温度上限",
+          "nullable": true
+        },
+        {
+          "name": "max_resistance_mohm",
+          "type": "number",
+          "description": "内阻上限",
+          "nullable": true
+        }
+      ],
+      "key": [
+        "chemistry"
+      ],
+      "references": [],
+      "path": "data/disposition_prices.csv",
+      "row_count": 2,
+      "sha256": "14a5a2adebeb9d747643133afca67978ba20ffcbaca6d194fba8f3909d8e43bc"
+    }
+  ]
+}
